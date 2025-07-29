@@ -13,7 +13,7 @@ class PageController extends AbstractController
     #[Route('/', name: 'home')]
     public function index(SnippetRepository $snippetRepository): Response
     {
-        $snippets = $snippetRepository->findAll();
+        $snippets = $snippetRepository->getSnippets();
 
         return $this->render('pages/home.html.twig', [
             'title' => 'Home Page',
@@ -24,7 +24,7 @@ class PageController extends AbstractController
     #[Route('/item/{id}', name: 'item')]
     public function item($id, SnippetRepository $snippetRepository): Response
     {
-        $snippet = $snippetRepository->find($id);
+        $snippet = $snippetRepository->getSnippetById($id);
 
         if (!$snippet) {
             throw $this->createNotFoundException('Snippet not found');
