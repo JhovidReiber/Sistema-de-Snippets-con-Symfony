@@ -13,13 +13,12 @@
            {% if snippet.parent %}
             <span>
                 <p class="text-xs text-gray-400 mb-2">
-                    Fork de:
+                    Fork de: <b class="text-xs text-white mb-2">{{ snippet.parent.title }}</b>
                 </p>
-                <p class="text-xs text-white mb-2">
-                    {{ snippet.parent.title }}
-                </p>
-                
             </span>
+
+            <hr class="border-gray-800 mb-3">
+
            {% endif %}
            
 
@@ -35,9 +34,11 @@
                     </button>
                 </form>
 
-                <!-- if -->
-
-                <!-- endif -->
+               {% if snippet.author.id == app.user.id %}
+                    <a href="{{ path('app_snippet_edit', { id: snippet.id }) }}" class="rounded-2xl py-1 px-4 bg-blue-800 text-xs text-white">
+                        Editar
+                    </a>
+                {% endif %}
             </div>
             {% endif %}
             
