@@ -13,7 +13,7 @@ use Symfony\Component\Security\Http\Attribute\CurrentUser;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 final class SnippetController extends AbstractController
-{   
+{
     #[Route('/snippet/new', name: 'app_snippet_new', methods: ['GET', 'POST'])]
     public function newSnippet(
         #[CurrentUser] User $user,
@@ -44,5 +44,24 @@ final class SnippetController extends AbstractController
             'errors' => $errors ?? [],
             'data' => $formData->all(),
         ]);
+    }
+
+    #[Route('/snippet/{id}/fork', name: 'app_snippet_fork', methods: ['POST'])]
+    public function forkSnippet(
+        #[CurrentUser] User $user,
+        EntityManagerInterface $entityManager,
+        Snippet $snippet,
+    ) {
+        $fork = (new Snippet)
+            ->setAuthor($user)
+            ->setTitle($snippet->getTitle() . ' (Fork)')
+            ->setDescription($snippet->getDescription())
+            ->setCode($snippet->getCode())
+            ->setParent($snippet);
+
+        $entityManager->persist($fork);
+        $entityManager->flush();
+
+        return $this->redirectToRoute('item', ['slug' => $fork->getSlug()]);
     }
 }
