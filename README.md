@@ -29,8 +29,8 @@ Este es un sistema web desarrollado con **Symfony 7** que permite a los usuarios
 1. Clona el repositorio:
 
 ```bash
-git clone https://github.com/tu-usuario/tu-repo.git
-cd tu-repo
+git clone https://github.com/JhovidReiber/Sistema-de-Snippets-con-Symfony.git
+cd Sistema-de-Snippets-con-Symfony
 ```
 
 2. Instala las dependencias PHP:
